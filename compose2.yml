@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  drupal:
+    image: drupal:latest
+    ports:
+      - 8083:80 
+    volumes:
+      - drupal_test4_modules:/var/www/html/modules
+      - drupal_test4_profiles:/var/www/html/profiles
+      - drupal_test4_themes:/var/www/html/themes
+      # this takes advantage of the feature in Docker that a new anonymous
+      # volume (which is what we're creating here) will be initialized with the
+      # existing content of the image at the same location
+      - drupal_test4_sites:/var/www/html/sites
+    restart: always 
+
+  mysqldb:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    container_name: mysqldb
+    volumes:
+      - drupal_test4_dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DR_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USR}
+      - MYSQL_PASSWORD=${MYSQL_PW}
