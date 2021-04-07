@@ -1,5 +1,16 @@
 <?php
 
+$databases['default']['default'] = array (
+  'database' => 'drupaldb',
+  'username' => 'drupadmin',
+  'password' => 'password',
+  'prefix' => '',
+  'host' => 'mysql',
+  'port' => '3306',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'driver' => 'mysql',
+);
+
 // @codingStandardsIgnoreFile
 
 /**

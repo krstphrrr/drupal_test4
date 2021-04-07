@@ -13,8 +13,9 @@ services:
       - drupal_test4_profiles:/var/www/html/profiles
       - drupal_test4_themes:/var/www/html/themes
       - drupal_test4_sites:/var/www/html/sites
-      - ./exports:/testdir
-      - ./exports/custom
+      # libraries 
+      - ./exports:/testdir:cached
+
     restart: always 
     
   mysql:
@@ -24,14 +25,24 @@ services:
     container_name: mysql
     volumes:
       - drupal_test4_dbdata:/var/lib/mysql
+      - ./exports/db-backups:/var/mysql/backups:delegated
     environment:
       - MYSQL_ROOT_PASSWORD=${DR_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DB}
       - MYSQL_USER=${MYSQL_USR}
       - MYSQL_PASSWORD=${MYSQL_PW}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8090:80
+    environment:  
+      PMA_HOST: mysql  
 volumes:
+  # persistent modules , profiles, themes, sites( if multisite? )
   drupal_test4_modules:
   drupal_test4_profiles:
   drupal_test4_themes:
   drupal_test4_sites:
+  # persistent mysql data
   drupal_test4_dbdata:

@@ -2,18 +2,31 @@ FROM drupal:latest
 
 RUN apt-get update && apt-get install apt-file -y && apt-file update && apt-get install vim -y
 
-RUN composer global require drush/drush 
 
-RUN export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-RUN composer global update
+# RUN export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+# RUN composer global update
 
 RUN composer require drupal/ds drupal/field_group drupal/bootstrap4 drupal/jquery_ui_accordion
 
-# RUN apt-get install rename
+RUN composer require drupal/backup_migrate:5.0.0-rc2
+
+COPY ./exports/php.ini-production /usr/local/etc/php/php.ini-production
+COPY ./exports/php.ini-development /usr/local/etc/php/php.ini-development
+
  
 COPY ./exports/settings.php /opt/drupal/web/sites/default/settings.php
 
-COPY ./exports/example.settings.local.php /opt/drupal/web/sites/default/settings.local.php
+COPY ./exports/settings.local.php /opt/drupal/web/sites/default/settings.local.php
 
+RUN composer require drush/drush 
+
+RUN export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+# RUN echo drush
+
+COPY ./drupal/entrypoint.sh /usr/local/bin/
+# RUN chmod +x /usr/local/bin/entrypoint.sh
+# ENTRYPOINT ["entrypoint.sh"]
 # RUN mkdir /opt/drupal/web/themes/custom

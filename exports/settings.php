@@ -678,21 +678,8 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  */
 # $settings['yaml_parser_class'] = NULL;
 
-/**
- * Trusted host configuration.
- *
- * Drupal core can use the Symfony trusted host mechanism to prevent HTTP Host
- * header spoofing.
- *
- * To enable the trusted host mechanism, you enable your allowable hosts
- * in $settings['trusted_host_patterns']. This should be an array of regular
- * expression patterns, without delimiters, representing the hosts you would
- * like to allow.
- *
- * For example:
- * @code
- * /
-$settings['trusted_host_patterns'] = [
+
+ $settings['trusted_host_patterns'] = [
    '^localhost$',
  ];
 /**
@@ -778,9 +765,13 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 #
- if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-   include $app_root . '/' . $site_path . '/settings.local.php';
- }
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}
+elseif (file_exists('/.dockerenv') &&
+  file_exists($app_root . '/' . $site_path . '/settings.docker.php')) {
+  include $app_root . '/' . $site_path . '/settings.docker.php';
+}
 $databases['default']['default'] = array (
   'database' => 'drupaldb',
   'username' => 'drupadmin',
