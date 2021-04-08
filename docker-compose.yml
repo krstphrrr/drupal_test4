@@ -9,10 +9,10 @@ services:
       - 8083:80 
     container_name: drupal
     volumes:
-      - drupal_test4_modules:/var/www/html/modules
-      - drupal_test4_profiles:/var/www/html/profiles
-      - drupal_test4_themes:/var/www/html/themes
-      - drupal_test4_sites:/var/www/html/sites
+      - drupal_test4_modules:/opt/drupal/web/modules
+      - drupal_test4_profiles:/opt/drupal/web/profiles
+      - drupal_test4_themes:/opt/drupal/web/themes
+      - drupal_test4_sites:/opt/drupal/web/sites
       # libraries 
       - ./exports:/testdir:cached
 
