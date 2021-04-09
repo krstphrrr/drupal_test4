@@ -28,11 +28,8 @@ services:
     volumes:
       - drupal_test4_dbdata:/var/lib/mysql
       - ./exports/db-backups:/var/mysql/backups:delegated
-    environment:
-      - MYSQL_ROOT_PASSWORD=${DR_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DB}
-      - MYSQL_USER=${MYSQL_USR}
-      - MYSQL_PASSWORD=${MYSQL_PW}
+    env_file:
+      - .env
 
   phpmyadmin:
     build:
