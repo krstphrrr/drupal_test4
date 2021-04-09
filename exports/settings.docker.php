@@ -1,9 +1,9 @@
 <?php
 
 $databases['default']['default'] = array (
-  'database' => getenv(MYSQL_DB),
-  'username' => getenv(MYSQL_USR),
-  'password' => getenv(MYSQL_PW),
+  'database' => getenv('MYSQL_DB'),
+  'username' => getenv('MYSQL_USR'),
+  'password' => getenv('MYSQL_PW'),
   'prefix' => '',
   'host' => 'mysql',
   'port' => '3306',

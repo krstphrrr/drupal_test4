@@ -8,6 +8,8 @@ services:
     ports:
       - 8083:80 
     container_name: drupal
+    env_file:
+      - .env
     volumes:
       - drupal_test4_modules:/opt/drupal/web/modules
       - drupal_test4_profiles:/opt/drupal/web/profiles
@@ -36,6 +38,7 @@ services:
     image: phpmyadmin/phpmyadmin
     ports:
       - 8090:80
+    container_name: phpmyadmin
     environment:  
       PMA_HOST: mysql  
 volumes:

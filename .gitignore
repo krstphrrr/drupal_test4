@@ -1,6 +1,6 @@
 .env
-exports/settings.php
-.gitignore
 exports2/db.sql
 exports/settings.local.php
 ignoreme.txt
+exports/settings.php
+
