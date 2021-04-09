@@ -35,12 +35,17 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PW}
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    build:
+      context: . 
+      dockerfile: phpmyadmin/Dockerfile
+    image: krstphr/custom_phpmyadmin:latest
     ports:
       - 8090:80
     container_name: phpmyadmin
     environment:  
-      PMA_HOST: mysql  
+      PMA_HOST: mysql 
+    volumes:
+      - ./php_myadminexports:/testdir 
 volumes:
   # persistent modules , profiles, themes, sites( if multisite? )
   drupal_test4_modules:
