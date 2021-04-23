@@ -4,3 +4,4 @@ exports/settings.local.php
 ignoreme.txt
 exports/settings.php
 
+credentials.env

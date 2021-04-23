@@ -1,25 +1,25 @@
 version: "3.9"
 services:
   drupal:
-    build: 
-      context: . 
+    build:
+      context: .
       dockerfile: drupal/Dockerfile
     image: krstphr/custom_drupal:latest
     ports:
-      - 8083:80 
+      - 8083:80
     container_name: drupal
     env_file:
-      - .env
+      - credentials.env
     volumes:
       - drupal_test4_modules:/opt/drupal/web/modules
       - drupal_test4_profiles:/opt/drupal/web/profiles
       - drupal_test4_themes:/opt/drupal/web/themes
       - drupal_test4_sites:/opt/drupal/web/sites
-      # libraries 
+      # libraries
       - ./exports:/testdir:cached
 
-    restart: always 
-    
+    restart: always
+
   mysql:
     image: mysql:latest
     ports:
@@ -28,21 +28,24 @@ services:
     volumes:
       - drupal_test4_dbdata:/var/lib/mysql
       - ./exports/db-backups:/var/mysql/backups:delegated
-    env_file:
-      - .env
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: drupal
+      MYSQL_ROOT_PASSWORD: drupal
 
   phpmyadmin:
     build:
-      context: . 
+      context: .
       dockerfile: phpmyadmin/Dockerfile
     image: krstphr/custom_phpmyadmin:latest
     ports:
       - 8090:80
     container_name: phpmyadmin
-    environment:  
-      PMA_HOST: mysql 
+    environment:
+      PMA_HOST: mysql
     volumes:
-      - ./php_myadminexports:/testdir 
+      - ./php_myadminexports:/testdir
 volumes:
   # persistent modules , profiles, themes, sites( if multisite? )
   drupal_test4_modules:

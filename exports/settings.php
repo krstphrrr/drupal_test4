@@ -773,9 +773,9 @@ elseif (file_exists('/.dockerenv') &&
   include $app_root . '/' . $site_path . '/settings.docker.php';
 }
 $databases['default']['default'] = array (
-  'database' => getenv('MYSQL_DB'),
-  'username' => getenv('MYSQL_USR'),
-  'password' => getenv('MYSQL_PW'),
+  'database' => 'drupal',
+  'username' => 'drupal',
+  'password' => 'drupal',
   'prefix' => '',
   'host' => 'mysql',
   'port' => '3306',
